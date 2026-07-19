@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judiciary Prime · POCSO Act Test 01 (हिंदी)</title>
+<style>
+  :root{
+    --navy:#0d1730;
+    --navy2:#111d3d;
+    --cream:#f2ecdd;
+    --gold:#c19a3f;
+    --green:#3ecf6e;
+    --red:#b3413c;
+    --muted:#8a93ab;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:Georgia,'Times New Roman',serif;
+    background:var(--navy);
+    color:var(--cream);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:20px 12px 60px;
+  }
+  .app{width:100%;max-width:620px;}
+  .header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 6px 22px;
+  }
+  .crest{
+    width:46px;height:46px;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;color:var(--gold);
+  }
+  .brand-name{font-size:1.15rem;letter-spacing:2px;font-weight:700;color:var(--cream);}
+  .brand-sub{font-size:0.78rem;color:var(--muted);letter-spacing:1px;margin-top:2px;}
+
+  .card{
+    background:var(--cream);
+    color:#1a2340;
+    border-radius:14px;
+    padding:28px 24px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .eyebrow{
+    font-size:0.72rem;letter-spacing:2px;font-weight:700;
+    color:var(--gold);text-transform:uppercase;margin-bottom:10px;
+  }
+  h1{font-size:1.7rem;margin:0 0 14px;line-height:1.25;color:#111c3d;}
+  p.desc{font-size:0.95rem;line-height:1.5;color:#40476a;margin-bottom:20px;}
+
+  .meta-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;
+  }
+  .meta-box{
+    background:#e7dfc7;border-radius:8px;padding:12px 14px;
+  }
+  .meta-label{font-size:0.68rem;letter-spacing:1.5px;color:#7a7150;text-transform:uppercase;}
+  .meta-val{font-size:1.15rem;font-weight:700;margin-top:2px;color:#16204a;}
+
+  label.field-label{
+    display:block;font-size:0.72rem;letter-spacing:2px;font-weight:700;
+    color:var(--gold);text-transform:uppercase;margin-bottom:8px;
+  }
+  input[type="text"]{
+    width:100%;padding:14px;border-radius:8px;border:1px solid #cfc4a0;
+    font-size:1rem;font-family:Georgia,serif;margin-bottom:18px;background:#fffdf8;
+  }
+  button{
+    font-family:Georgia,serif;cursor:pointer;border:none;
+  }
+  .btn-primary{
+    width:100%;padding:16px;border-radius:8px;background:#111c3d;color:#f2ecdd;
+    font-size:1.05rem;font-weight:700;letter-spacing:0.5px;
+  }
+  .btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+  .hint{text-align:center;color:#7a7150;font-size:0.82rem;margin-top:14px;line-height:1.5;}
+
+  /* Quiz screen */
+  .quiz-top{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:0.85rem;color:#5a6182;margin-bottom:14px;
+  }
+  .qbox{
+    background:var(--navy2);border-radius:14px;padding:22px 20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);color:var(--cream);
+  }
+  .qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .tag{
+    border:1px solid var(--gold);color:var(--gold);border-radius:20px;
+    padding:5px 14px;font-size:0.78rem;letter-spacing:1px;font-weight:700;
+  }
+  .flag{color:var(--muted);font-size:0.82rem;cursor:pointer;user-select:none;}
+  .flag.active{color:var(--gold);}
+  .qtext{font-size:1.2rem;line-height:1.5;margin-bottom:20px;}
+  .opt{
+    border:1px solid #3a4568;border-radius:10px;padding:14px 16px;margin-bottom:12px;
+    display:flex;gap:14px;align-items:center;cursor:pointer;transition:all .15s;
+  }
+  .opt:hover{border-color:var(--gold);}
+  .opt.selected{border-color:var(--gold);background:rgba(193,154,63,0.12);}
+  .opt-letter{
+    width:28px;height:28px;border-radius:50%;border:1px solid #5a6488;
+    display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;
+  }
+  .opt.selected .opt-letter{border-color:var(--gold);color:var(--gold);}
+  .opt-text{font-size:0.98rem;line-height:1.4;}
+
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:22px;}
+  .btn-secondary{
+    flex:1;padding:14px;border-radius:8px;background:transparent;
+    border:1px solid #5a6488;color:var(--cream);font-size:0.95rem;
+  }
+  .btn-submit{
+    flex:1;padding:14px;border-radius:8px;background:var(--red);color:#fff;font-weight:700;font-size:0.95rem;
+  }
+  .grid-nav{
+    display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:22px;
+  }
+  .nav-dot{
+    aspect-ratio:1;border-radius:50%;border:1px solid #3a4568;
+    display:flex;align-items:center;justify-content:center;font-size:0.72rem;
+    cursor:pointer;color:var(--muted);
+  }
+  .nav-dot.current{border-color:var(--cream);color:var(--cream);}
+  .nav-dot.answered{background:#1c2c56;color:var(--cream);border-color:#3a4568;}
+  .nav-dot.flagged{border-color:var(--gold);color:var(--gold);}
+
+  /* Results */
+  .result-top{display:flex;gap:22px;align-items:center;margin-bottom:22px;flex-wrap:wrap;}
+  .score-circle{
+    width:120px;height:120px;border-radius:50%;border:3px solid #16204a;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .score-circle .num{font-size:2.1rem;font-weight:700;color:#111c3d;}
+  .score-circle .den{font-size:0.9rem;color:#7a7150;}
+  .verdict{font-size:1.4rem;font-weight:700;color:#111c3d;margin-bottom:8px;}
+  .stat-row{display:flex;gap:22px;}
+  .stat{text-align:left;}
+  .stat .n{font-size:1.3rem;font-weight:700;}
+  .stat .l{font-size:0.78rem;color:#7a7150;}
+  .stat.correct .n{color:#1f7a44;}
+  .stat.wrong .n{color:var(--red);}
+
+  .result-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:22px 0;
+  }
+  .rdot{
+    border-radius:8px;padding:8px 4px;text-align:center;font-size:0.75rem;font-weight:700;
+    border:1px solid #cfc4a0;color:#40476a;
+  }
+  .rdot.r-correct{background:#dcefe0;border-color:#1f7a44;color:#1f7a44;}
+  .rdot.r-wrong{background:#f6dede;border-color:var(--red);color:var(--red);}
+  .rdot.r-skip{background:#e7dfc7;color:#7a7150;}
+
+  .btn-whatsapp{
+    width:100%;padding:16px;border-radius:8px;background:var(--green);color:#0d1730;
+    font-weight:700;font-size:1.02rem;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .btn-retake{
+    width:100%;padding:16px;border-radius:8px;background:#111c3d;color:var(--cream);font-weight:700;font-size:1rem;
+  }
+
+  .answer-key{margin-top:30px;border-top:1px solid #cfc4a0;padding-top:20px;}
+  .answer-key h2{font-size:1.2rem;color:#111c3d;margin-bottom:14px;}
+  .ak-item{margin-bottom:16px;font-size:0.92rem;line-height:1.5;}
+  .ak-q{font-weight:700;color:#16204a;margin-bottom:3px;}
+  .ak-ans{color:#1f7a44;font-weight:700;}
+  .ak-exp{color:#40476a;margin-top:3px;}
+
+  footer{
+    text-align:center;color:#5a6182;font-size:0.78rem;line-height:1.6;margin-top:24px;padding:0 10px;
+  }
+  .hidden{display:none !important;}
+  @media(max-width:400px){
+    .meta-grid{grid-template-columns:1fr 1fr;}
+    .result-grid{grid-template-columns:repeat(5,1fr);}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="crest">⚖</div>
+    <div>
+      <div class="brand-name">JUDICIARY PRIME</div>
+      <div class="brand-sub">राजस्थान APO परीक्षा तैयारी</div>
+    </div>
+  </div>
+
+  <!-- ADMIT SCREEN -->
+  <div class="card" id="admitScreen">
+    <div class="eyebrow">प्रवेश पत्र · न्यायिक एवं APO प्रारंभिक परीक्षा</div>
+    <h1>POCSO अधिनियम, 2012 — टेस्ट 01 (हिंदी)<br><span style="font-size:1.1rem;color:#7a7150;">केवल धारा 1–12</span></h1>
+    <p class="desc">बाल लैंगिक अपराध संरक्षण अधिनियम, 2012 (2019 संशोधन सहित) की धारा 1–12 पर आधारित 30 वस्तुनिष्ठ प्रश्न, जिनमें महत्वपूर्ण न्यायिक निर्णय भी शामिल हैं। कठिनाई स्तर: उन्नत।</p>
+
+    <div class="meta-grid">
+      <div class="meta-box"><div class="meta-label">प्रश्न</div><div class="meta-val">30</div></div>
+      <div class="meta-box"><div class="meta-label">समय</div><div class="meta-val">30 मिनट</div></div>
+      <div class="meta-box"><div class="meta-label">अंकन</div><div class="meta-val">+1, −0.25</div></div>
+      <div class="meta-box"><div class="meta-label">अधिनियम</div><div class="meta-val">POCSO, 2012</div></div>
+    </div>
+
+    <label class="field-label">आपका पूरा नाम</label>
+    <input type="text" id="studentName" placeholder="अपना पूरा नाम लिखें" maxlength="60">
+
+    <button class="btn-primary" id="beginBtn">Test शुरू करें →</button>
+    <div class="hint">Test शुरू करते ही timer चालू हो जाएगा। 00:00 पर test अपने आप submit हो जाएगा।</div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="hidden" id="quizScreen">
+    <div class="quiz-top">
+      <span id="qCounter">Q1 / 30 · 0 answered</span>
+      <span id="timerDisplay">30:00</span>
+    </div>
+    <div class="qbox">
+      <div class="qtop">
+        <span class="tag" id="sectionTag">POCSO §1</span>
+        <span class="flag" id="flagBtn">⚑ Review के लिए Flag करें</span>
+      </div>
+      <div class="qtext" id="qText"></div>
+      <div id="optsWrap"></div>
+
+      <div class="navrow">
+        <button class="btn-secondary" id="prevBtn">← पिछला</button>
+        <button class="btn-secondary hidden" id="nextBtn">अगला →</button>
+        <button class="btn-submit hidden" id="submitBtn">Test Submit करें</button>
+      </div>
+
+      <div class="grid-nav" id="gridNav"></div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="hidden card" id="resultScreen">
+    <div class="eyebrow" id="resultEyebrow">परिणाम · POCSO टेस्ट 01 (हिंदी)</div>
+    <div id="resultName" style="font-size:1.1rem;color:#40476a;margin-bottom:16px;"></div>
+
+    <div class="result-top">
+      <div class="score-circle">
+        <div class="num" id="scoreNum">0</div>
+        <div class="den">/ 30</div>
+      </div>
+      <div>
+        <div class="verdict" id="verdictText">Needs revision</div>
+        <div class="stat-row">
+          <div class="stat correct"><div class="n" id="statCorrect">0</div><div class="l">सही</div></div>
+          <div class="stat wrong"><div class="n" id="statWrong">0</div><div class="l">गलत</div></div>
+          <div class="stat"><div class="n" id="statSkip">0</div><div class="l">अनुत्तरित</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-grid" id="resultGrid"></div>
+
+    <button class="btn-whatsapp" id="whatsappBtn">💬 Result Judiciary Prime को भेजें</button>
+    <button class="btn-retake" id="retakeBtn">↻ दोबारा Test दें</button>
+
+    <div class="answer-key" id="answerKey">
+      <h2>उत्तर कुंजी और स्पष्टीकरण</h2>
+      <div id="akList"></div>
+    </div>
+  </div>
+
+  <footer>
+    Judiciary Prime · POCSO अधिनियम, 2012 (2019 संशोधन सहित) · परीक्षा के लिए भरोसा करने से पहले धारा संख्याओं की पुष्टि वर्तमान bare act से स्वयं कर लें।
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = [
+{sec:"§1", q:"POCSO अधिनियम, 2012 का विस्तार कहां तक है?", opts:["केवल राज्यों तक, संघ राज्यक्षेत्रों तक नहीं","संपूर्ण भारत तक","राष्ट्रपति शासन वाले राज्यों को छोड़कर सभी राज्यों तक","केवल उन क्षेत्रों तक जहां राज्य सरकार अधिसूचना जारी करे"], ans:1, exp:"धारा 1(2) — अधिनियम का विस्तार संपूर्ण भारत तक है।"},
+{sec:"§2", q:"धारा 2(1)(d) के अंतर्गत, 'बालक' (child) से आशय है ऐसा कोई व्यक्ति जिसकी आयु इससे कम हो:", opts:["सोलह वर्ष","चौदह वर्ष","अठारह वर्ष","इक्कीस वर्ष"], ans:2, exp:"धारा 2(1)(d) 'बालक' को अठारह वर्ष से कम आयु के किसी भी व्यक्ति के रूप में परिभाषित करती है।"},
+{sec:"§2", q:"Eera बनाम राज्य (NCT दिल्ली) (2017) मामले में, सर्वोच्च न्यायालय ने माना कि POCSO के अंतर्गत, पीड़िता की आयु का निर्धारण किस आधार पर होना चाहिए?", opts:["पीड़िता की मानसिक आयु","केवल कालानुक्रमिक/जैविक आयु","मानसिक और जैविक आयु में से जो भी कम हो","केवल बाल कल्याण समिति द्वारा आकलित आयु"], ans:1, exp:"सर्वोच्च न्यायालय ने 'मानसिक आयु' को 'बालक' की परिभाषा में पढ़ने से इनकार किया और माना कि POCSO की प्रयोज्यता केवल 18 वर्ष से कम की कालानुक्रमिक/जैविक आयु से ही तय होगी।"},
+{sec:"§2", q:"धारा 2 के अंतर्गत, 'घरेलू संबंध' (domestic relationship) अभिव्यक्ति का वही अर्थ है जो किस अधिनियम में दिया गया है?", opts:["किशोर न्याय (बालकों की देखभाल और संरक्षण) अधिनियम, 2015","घरेलू हिंसा से महिलाओं का संरक्षण अधिनियम, 2005","भारतीय दंड संहिता, 1860","हिंदू विवाह अधिनियम, 1955"], ans:1, exp:"धारा 2(1) 'घरेलू संबंध' का अर्थ घरेलू हिंसा से महिलाओं का संरक्षण अधिनियम, 2005 की धारा 2 के खंड (f) से उधार लेती है।"},
+{sec:"§3", q:"एक व्यक्ति किसी बालिका की योनि में बोतल डालता है। यह कृत्य धारा 3 के अंतर्गत भेदक लैंगिक हमले (penetrative sexual assault) के किस भाग में आता है?", opts:["धारा 3(a) — शिश्न भेदन (penile penetration)","धारा 3(b) — शिश्न के अतिरिक्त किसी वस्तु या शरीर के भाग का सम्मिलन","धारा 3(c) — मुख का प्रयोग","यह धारा 3 के अंतर्गत बिल्कुल भी कवर नहीं है"], ans:1, exp:"धारा 3(b) शिश्न के अतिरिक्त किसी वस्तु या शरीर के किसी भाग को बालक की योनि, मूत्रमार्ग या गुदा में सम्मिलित करने को कवर करती है।"},
+{sec:"§3", q:"धारा 3(c) के अंतर्गत, भेदक लैंगिक हमले में यह भी शामिल है जब कोई व्यक्ति:", opts:["केवल लैंगिक आशय से बालक के स्तन को स्पर्श करता है","बालक के शरीर के किसी भाग को इस प्रकार manipulate करता है कि योनि, मूत्रमार्ग, गुदा या शरीर के किसी अन्य भाग में भेदन हो, या बालक से इसे स्वयं या किसी अन्य व्यक्ति के साथ करवाता है","बालक को अश्लील सामग्री दिखाता है","लैंगिक आशय से बालक का बार-बार पीछा करता है"], ans:1, exp:"धारा 3(c) बालक के अपने शरीर या किसी अन्य के शरीर से भेदन कराने वाले manipulation को कवर करती है, जिसमें बालक को भेदन करने के लिए बाध्य करना भी शामिल है। (खंड (d) अलग से बालक के शिश्न, योनि, गुदा या मूत्रमार्ग पर मुख लगाने को कवर करता है।)"},
+{sec:"§4", q:"धारा 4 के अंतर्गत भेदक लैंगिक हमले के लिए न्यूनतम दंड (जहां पीड़िता सोलह वर्ष से अधिक आयु की हो) कारावास है, जो इससे कम नहीं होगा:", opts:["सात वर्ष","दस वर्ष","चौदह वर्ष","बीस वर्ष"], ans:1, exp:"धारा 4(1) न्यूनतम दस वर्ष के सश्रम कारावास का प्रावधान करती है, जो आजीवन कारावास तक बढ़ाया जा सकता है, साथ में जुर्माना।"},
+{sec:"§4", q:"जहां धारा 4 के अंतर्गत भेदक लैंगिक हमला सोलह वर्ष से कम आयु के बालक पर किया जाता है, वहां बढ़ा हुआ न्यूनतम दंड है:", opts:["दस वर्ष, जो आजीवन कारावास तक बढ़ाया जा सके","चौदह वर्ष, जो बीस वर्ष तक बढ़ाया जा सके","बीस वर्ष, जो उस व्यक्ति के शेष प्राकृतिक जीवन तक के कारावास तक बढ़ाया जा सके","अनिवार्यतः आजीवन कारावास, बिना किसी निम्न सीमा के"], ans:2, exp:"धारा 4(2) का परंतुक (2019 संशोधन द्वारा जोड़ा गया) न्यूनतम बीस वर्ष अनिवार्य करता है, जो शेष प्राकृतिक जीवन के कारावास तक बढ़ाया जा सकता है, साथ में जुर्माना।"},
+{sec:"§5", q:"X, एक पुलिस अधिकारी, उस पुलिस थाने की सीमा के भीतर एक बालिका पर भेदक लैंगिक हमला करता है जहां वह नियुक्त है, जबकि वह उसकी अभिरक्षा में है। यह किसे आकर्षित करता है?", opts:["केवल साधारण धारा 3","धारा 5(a) — पुलिस अधिकारी द्वारा गंभीर भेदक लैंगिक हमला","धारा 7 — लैंगिक हमला","धारा 11 — लैंगिक उत्पीड़न"], ans:1, exp:"धारा 5(a) विशेष रूप से पुलिस अधिकारी द्वारा उसके अधिकार क्षेत्र में, या उसकी अभिरक्षा में बालक पर किए गए भेदक लैंगिक हमले को गंभीर अपराध बनाती है।"},
+{sec:"§5", q:"धारा 5(m) के अंतर्गत, भेदक लैंगिक हमला 'गंभीर' (aggravated) तब हो जाता है जब यह इस आयु से कम के बालक पर किया जाए:", opts:["दस वर्ष","बारह वर्ष","चौदह वर्ष","सोलह वर्ष"], ans:1, exp:"धारा 5(m) बारह वर्ष से कम आयु के बालक पर किए गए भेदक लैंगिक हमले को गंभीर मानती है।"},
+{sec:"§5", q:"निम्नलिखित में से कौन सा, बालक की विकलांगता का लाभ उठाना, धारा 5 के अंतर्गत गंभीर परिस्थिति के रूप में स्पष्ट रूप से सूचीबद्ध है?", opts:["धारा 5(k)","धारा 5(l)","धारा 5(p)","धारा 5(u)"], ans:0, exp:"धारा 5(k) यह गंभीर बनाती है जहां अपराधी, बालक की मानसिक या शारीरिक विकलांगता का लाभ उठाकर हमला करता है। (खंड (l) इसके बजाय एक ही बालक पर बार-बार किए गए हमले को कवर करता है।)"},
+{sec:"§5", q:"POCSO (संशोधन) अधिनियम, 2019 द्वारा धारा 5(h) में नई गंभीर परिस्थिति के रूप में क्या जोड़ा गया?", opts:["बालक के किसी संबंधी द्वारा अपराध कारित करना","हमला करते समय घातक हथियार, अग्नि, गर्म या संक्षारक पदार्थ का प्रयोग","अपराध को एक से अधिक बार कारित करना","विश्वास की स्थिति में स्थित व्यक्ति द्वारा अपराध कारित करना"], ans:1, exp:"धारा 5(h), जो 2019 संशोधन द्वारा जोड़ी गई, हमला करते समय घातक हथियार, अग्नि, गर्म या संक्षारक पदार्थ के प्रयोग को गंभीर बनाती है। (लैंगिक अंगों को गंभीर चोट या क्षति पहुंचाना एक अलग, संबंधित खंड — 5(i) है।)"},
+{sec:"§6", q:"2019 संशोधन के बाद, धारा 6 के अंतर्गत गंभीर भेदक लैंगिक हमले के लिए निर्धारित दंड न्यूनतम बीस वर्ष से लेकर किस तक है?", opts:["सभी परिस्थितियों में केवल आजीवन कारावास","शेष प्राकृतिक जीवन के लिए कारावास, या मृत्युदंड","तीस वर्ष का सश्रम कारावास पूर्ण अधिकतम सीमा के रूप में","आजीवन कारावास जो चौदह वर्ष में परिवर्तनीय हो"], ans:1, exp:"धारा 6(1), जैसा 2019 में संशोधित हुई, शेष प्राकृतिक जीवन के लिए कारावास, या मृत्युदंड तक की सज़ा की अनुमति देती है, साथ में जुर्माना।"},
+{sec:"§6", q:"धारा 6 के स्पष्टीकरण के अंतर्गत, 'आजीवन' (life) कारावास का अर्थ है:", opts:["बीस वर्ष की निश्चित अवधि का कारावास","उस व्यक्ति के शेष प्राकृतिक जीवन के लिए कारावास","परिहार सहित चौदह वर्ष का कारावास","केवल अपील के लंबित रहने तक कारावास"], ans:1, exp:"स्पष्टीकरण यह स्पष्ट करता है कि 'आजीवन' का अर्थ उस व्यक्ति के शेष प्राकृतिक जीवन के लिए कारावास है।"},
+{sec:"§7", q:"धारा 7 के अंतर्गत, 'लैंगिक हमला' (भेदक लैंगिक हमले से भिन्न) में बालक की योनि, शिश्न, गुदा या स्तन को स्पर्श करना, या बालक से वैसा स्पर्श करवाना, या लैंगिक आशय से कोई अन्य कृत्य शामिल है, जिसमें यह होता है:", opts:["चाहे कितना भी हल्का भेदन","बिना भेदन के शारीरिक संपर्क","केवल मौखिक संचार","अश्लील सामग्री का प्रदर्शन"], ans:1, exp:"धारा 7 लैंगिक आशय से किए गए ऐसे लैंगिक संपर्क को कवर करती है जो भेदन तक नहीं पहुंचता।"},
+{sec:"§7", q:"Attorney General for India बनाम Satish (2021) मामले में, सर्वोच्च न्यायालय ने बॉम्बे उच्च न्यायालय के 'skin-to-skin' निर्णय को पलटते हुए, धारा 7 के अंतर्गत अपराध के लिए यह माना कि:", opts:["अपराध बनने के लिए त्वचा-से-त्वचा (skin-to-skin) संपर्क अनिवार्य है","त्वचा-से-त्वचा संपर्क आवश्यक नहीं है; लैंगिक आशय से स्पर्श, चाहे कपड़ों के ऊपर से ही क्यों न हो, लैंगिक हमला माना जाएगा","धारा 7 केवल तब लागू होती है जब भेदन साबित हो","यदि कोई शारीरिक संपर्क है तो आशय अप्रासंगिक है"], ans:1, exp:"सर्वोच्च न्यायालय ने माना कि त्वचा-से-त्वचा संपर्क की अपेक्षा करने वाली संकीर्ण, भौतिक व्याख्या अधिनियम के वास्तविक उद्देश्य को विफल कर देगी; निर्णायक तत्व लैंगिक आशय है, न कि संपर्क की प्रकृति।"},
+{sec:"§8", q:"धारा 8 के अंतर्गत लैंगिक हमले का दंड किसी भी वर्णन का कारावास है, जिसकी अवधि इससे कम नहीं होगी:", opts:["एक वर्ष, जो तीन वर्ष तक बढ़ाई जा सके","तीन वर्ष, जो पांच वर्ष तक बढ़ाई जा सके","पांच वर्ष, जो सात वर्ष तक बढ़ाई जा सके","सात वर्ष, जो दस वर्ष तक बढ़ाई जा सके"], ans:1, exp:"धारा 8 न्यूनतम तीन वर्ष के कारावास का प्रावधान करती है, जो पांच वर्ष तक बढ़ाया जा सकता है, साथ में जुर्माना।"},
+{sec:"§9", q:"धारा 9(n) के अंतर्गत, लैंगिक हमला 'गंभीर' हो जाता है जब यह उस व्यक्ति द्वारा किया जाए जो बालक का संबंधी है, इस माध्यम से:", opts:["केवल रक्त संबंध","रक्त, दत्तक ग्रहण, विवाह, संरक्षकता या पालन-पोषण के माध्यम से, या जिसका बालक के माता-पिता में से किसी के साथ घरेलू संबंध हो, या जो उसी/साझा गृहस्थी में रहता हो","केवल दत्तक ग्रहण","केवल पालन-पोषण"], ans:1, exp:"धारा 9(n) इन निर्दिष्ट संबंधों को सूचीबद्ध करती है। ध्यान दें: 'विश्वास या प्राधिकार की स्थिति' में स्थित व्यक्ति द्वारा हमला करना अलग से धारा 9(p) के अंतर्गत आता है, खंड (n) के अंतर्गत नहीं।"},
+{sec:"§9", q:"निम्नलिखित में से कौन सी लैंगिक हमले की गंभीर परिस्थिति है जो धारा 5 से धारा 9 में स्पष्ट रूप से दोहराई गई है?", opts:["बाज़ार में अपराध कारित करना","किसी शैक्षणिक या धार्मिक संस्थान के स्वामित्व, प्रबंधन या स्टाफ में शामिल व्यक्ति द्वारा अपराध कारित करना","अज्ञात डिजिटल माध्यम से अपराध कारित करना","केवल चलते वाहन में अपराध कारित करना"], ans:1, exp:"धारा 9(f) धारा 5 को प्रतिबिंबित करती है, और शैक्षणिक, धार्मिक या समान संस्थान के स्टाफ/प्रबंधन द्वारा लैंगिक हमले को गंभीर बनाती है।"},
+{sec:"§9", q:"बारह वर्ष से कम आयु के बालक पर किया गया लैंगिक हमला किस धारा के अंतर्गत गंभीर लैंगिक हमला माना जाता है?", opts:["धारा 9(m)","धारा 9(a)","धारा 9(z)","धारा 9 के अंतर्गत ऐसा कोई प्रावधान नहीं है"], ans:0, exp:"धारा 9(m), धारा 5(m) के समानांतर, बारह वर्ष से कम आयु के बालक पर लैंगिक हमले को गंभीर बनाती है।"},
+{sec:"§10", q:"धारा 10 के अंतर्गत गंभीर लैंगिक हमले के लिए दंड कारावास है, जो इससे कम नहीं होगा:", opts:["तीन वर्ष, जो पांच वर्ष तक बढ़ाई जा सके","पांच वर्ष, जो सात वर्ष तक बढ़ाई जा सके","सात वर्ष, जो दस वर्ष तक बढ़ाई जा सके","दस वर्ष, जो चौदह वर्ष तक बढ़ाई जा सके"], ans:1, exp:"धारा 10 न्यूनतम पांच वर्ष का प्रावधान करती है, जो सात वर्ष तक बढ़ाया जा सकता है, साथ में जुर्माना।"},
+{sec:"§11", q:"धारा 11 के अंतर्गत, निम्नलिखित में से क्या बालक के 'लैंगिक उत्पीड़न' (sexual harassment) के अंतर्गत आता है?", opts:["ऐसे आशय से कोई शब्द बोलना या ध्वनि निकालना, या हावभाव करना, या कोई वस्तु या शरीर का भाग प्रदर्शित करना, कि वह शब्द या हावभाव बालक द्वारा देखा या सुना जाए","सार्वजनिक स्थान पर बालक से केवल लंबे समय तक आंखों का संपर्क बनाए रखना","बिना किसी लैंगिक आशय के बालक के पास ज़ोर से बोलना","किसी भी प्रकार का शारीरिक संपर्क, चाहे कितना भी निर्दोष क्यों न हो"], ans:0, exp:"धारा 11(i) लैंगिक आशय से कोई शब्द बोलने, ध्वनि या हावभाव करने, या वस्तु/शरीर का भाग प्रदर्शित करने को कवर करती है, इस आशय से कि वह बालक द्वारा देखा/सुना जाए।"},
+{sec:"§11", q:"इलेक्ट्रॉनिक, फिल्म, डिजिटल या किसी अन्य माध्यम से, बालक के लैंगिक कृत्य के वास्तविक या मनगढ़ंत चित्रण का उपयोग करने की धमकी देना — बालक या उसके परिवार को धमकाने के आशय से — धारा 11 के किस खंड के अंतर्गत कवर है?", opts:["धारा 11(i)","धारा 11(v)","धारा 11(vi)","यह धारा 11 के अंतर्गत कवर नहीं है और केवल IT अधिनियम के अंतर्गत आता है"], ans:1, exp:"धारा 11(v) विशेष रूप से बालक के शरीर के किसी भाग के, या बालक के लैंगिक कृत्य में शामिल होने के वास्तविक या मनगढ़ंत चित्रण का माध्यमों से उपयोग करने की धमकी को कवर करती है। (खंड (iv) इसके बजाय बालक का बार-बार/लगातार पीछा करना, देखना, या संपर्क करना कवर करता है।)"},
+{sec:"§11", q:"धारा 11(vi) के अंतर्गत, अश्लील उद्देश्यों के लिए बालक को प्रलोभित करना या इसके लिए संतुष्टि (gratification) देना, यह गठित करता है:", opts:["गंभीर भेदक लैंगिक हमला","लैंगिक उत्पीड़न","साधारण लैंगिक हमला","कोई अपराध नहीं, जब तक वास्तविक अश्लील सामग्री न बनाई जाए"], ans:1, exp:"धारा 11(vi) अश्लील उद्देश्यों के लिए बालक को प्रलोभित करने, या इसके लिए संतुष्टि देने को लैंगिक उत्पीड़न का कृत्य बनाती है।"},
+{sec:"§12", q:"धारा 12 के अंतर्गत बालक के लैंगिक उत्पीड़न के लिए दंड किसी भी वर्णन का कारावास है, जो इस अवधि तक बढ़ाया जा सकता है:", opts:["एक वर्ष","तीन वर्ष","पांच वर्ष","सात वर्ष"], ans:1, exp:"धारा 12 जुर्माने के साथ तीन वर्ष तक बढ़ाए जा सकने वाले कारावास का प्रावधान करती है।"},
+{sec:"§3", q:"Independent Thought बनाम भारत संघ (2017) मामले में, सर्वोच्च न्यायालय ने भारतीय दंड संहिता की धारा 375 के अपवाद 2 को मुख्यतः किस सिद्धांत के साथ सामंजस्य बिठाने के लिए 'पढ़कर सीमित' (read down) किया, जो POCSO के आधार में निहित है?", opts:["POCSO विवाहित बालिकाओं के लिए सहमति की कम आयु की अनुमति देता है","POCSO केवल इस आधार पर बालिका के लिए कोई अपवाद नहीं बनाता कि वह विवाहित है; अठारह वर्ष से कम आयु की बालिका के साथ यौन संभोग धारा 3/4 के अंतर्गत अपराध बना रहता है","POCSO केवल अविवाहित बालकों पर लागू होता है","वैवाहिक स्थिति धारा 3 की प्रयोज्यता तय करती है"], ans:1, exp:"न्यायालय ने माना कि POCSO, एक विशेष और परवर्ती विधि होने के नाते जो अठारह वर्ष से कम आयु के सभी बालकों को बिना वैवाहिक अपवाद के संरक्षण देता है, IPC के अंतर्गत वैवाहिक बलात्कार के अपवाद द्वारा विफल नहीं किया जा सकता।"},
+{sec:"§5/6", q:"एक लोक सेवक किसी बालिका पर भेदक लैंगिक हमला करता है, जिसके परिणामस्वरूप गंभीर शारीरिक क्षति होती है और वह उसे विकलांग बना देता है। दंड के लिए मुख्यतः कौन सा प्रावधानों का संयोजन लागू होगा?", opts:["केवल धारा 3 के साथ धारा 4","धारा 5(c)/(i) [गंभीर कारक: लोक सेवक, गंभीर चोट] के साथ दंड के लिए धारा 6","धारा 7 के साथ धारा 8","धारा 11 के साथ धारा 12"], ans:1, exp:"धारा 5(c) (लोक सेवक द्वारा हमला) और धारा 5(i) (गंभीर चोट या लैंगिक अंगों को क्षति पहुंचाना) स्वतंत्र गंभीर कारक हैं, जिनमें से कोई भी धारा 6 के अंतर्गत बढ़े हुए दंड को आकर्षित करता है।"},
+{sec:"§5", q:"सामूहिक भेदक लैंगिक हमला (gang penetrative sexual assault), जहां एक बालक पर समूह के एक या अधिक व्यक्तियों द्वारा सामान्य आशय की पूर्ति में हमला किया जाता है, धारा 5 के किस खंड के अंतर्गत गंभीर माना जाता है?", opts:["धारा 5(g)","धारा 5(b)","धारा 5(t)","गैंग हमला धारा 5 के अंतर्गत अलग से मान्यताप्राप्त नहीं है"], ans:0, exp:"धारा 5(g) 'सामूहिक भेदक लैंगिक हमला' — सामान्य आशय की पूर्ति में समूह के एक या अधिक व्यक्तियों द्वारा हमला — को गंभीर अपराध बनाती है, जिसमें प्रत्येक व्यक्ति को अपराध कारित करने वाला माना जाता है।"},
+{sec:"§9", q:"बालक को सेवाएं प्रदान करने वाली किसी संस्था (जैसे अस्पताल) के स्वामित्व, प्रबंधन या स्टाफ में शामिल व्यक्ति द्वारा बालक पर किया गया लैंगिक हमला धारा 9 के किस भाग के अंतर्गत गंभीर है?", opts:["धारा 9(o)","धारा 9(a)","धारा 9(zb)","गंभीर नहीं; साधारण लैंगिक हमला माना जाता है"], ans:0, exp:"धारा 9(o), जो धारा 5(o) को प्रतिबिंबित करती है, बालक को सेवाएं प्रदान करने वाली किसी संस्था के स्वामित्व, प्रबंधन या स्टाफ में शामिल व्यक्ति द्वारा लैंगिक हमले को कवर करती है, जिससे अपराध गंभीर हो जाता है। (खंड (k) इसके बजाय बालक की विकलांगता का लाभ उठाना कवर करता है।)"},
+{sec:"§2/3", q:"एक ट्यूशन शिक्षक, अपनी स्थिति का लाभ उठाते हुए, एक नौ वर्षीय बालक से बिना भेदन के, लैंगिक आशय से अपने शिश्न को स्पर्श करवाता है। धारा 2, 7 और 9 को एक साथ देखते हुए, इस कृत्य को सबसे सटीक रूप से इस प्रकार वर्गीकृत किया जाएगा:", opts:["धारा 3 के अंतर्गत भेदक लैंगिक हमला","धारा 9 के अंतर्गत गंभीर लैंगिक हमला (विश्वास की स्थिति और बारह वर्ष से कम आयु का बालक)","धारा 11 के अंतर्गत लैंगिक उत्पीड़न","कोई अपराध नहीं, क्योंकि बालक के शरीर से कोई प्रत्यक्ष संपर्क नहीं है"], ans:1, exp:"चूंकि कोई भेदन नहीं है, इसलिए धारा 7 (लैंगिक हमला) लागू होती है; शिक्षक की विश्वास की स्थिति (धारा 9(p)) और बालक की बारह वर्ष से कम आयु (धारा 9(m)) दोनों स्वतंत्र रूप से धारा 9 के गंभीर खंडों को आकर्षित करती हैं, जिससे धारा 10 का दंड लागू होता है।"},
+];
+
+let currentIndex = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+let flagged = new Array(QUESTIONS.length).fill(false);
+let studentName = "";
+let timerInterval = null;
+let secondsLeft = 30 * 60;
+let submitted = false;
+
+const admitScreen = document.getElementById('admitScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultScreen = document.getElementById('resultScreen');
+
+document.getElementById('beginBtn').addEventListener('click', () => {
+  const nameInput = document.getElementById('studentName');
+  const val = nameInput.value.trim();
+  if(!val){ nameInput.style.borderColor = '#b3413c'; nameInput.focus(); return; }
+  studentName = val;
+  admitScreen.classList.add('hidden');
+  quizScreen.classList.remove('hidden');
+  renderGridNav();
+  renderQuestion();
+  startTimer();
+});
+
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    updateTimerDisplay();
+    if(secondsLeft <= 0){
+      clearInterval(timerInterval);
+      finishTest();
+    }
+  }, 1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(secondsLeft/60).toString().padStart(2,'0');
+  const s = (secondsLeft%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[currentIndex];
+  document.getElementById('sectionTag').textContent = `POCSO ${q.sec}`;
+  document.getElementById('qText').textContent = `प्रश्न ${currentIndex+1}. ${q.q}`;
+  const wrap = document.getElementById('optsWrap');
+  wrap.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt' + (answers[currentIndex] === i ? ' selected' : '');
+    div.innerHTML = `<div class="opt-letter">${letters[i]}</div><div class="opt-text">${opt}</div>`;
+    div.addEventListener('click', () => {
+      answers[currentIndex] = i;
+      renderQuestion();
+      renderGridNav();
+      updateCounter();
+    });
+    wrap.appendChild(div);
+  });
+
+  document.getElementById('flagBtn').classList.toggle('active', flagged[currentIndex]);
+  document.getElementById('prevBtn').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+  document.getElementById('nextBtn').classList.toggle('hidden', currentIndex === QUESTIONS.length - 1);
+  document.getElementById('submitBtn').classList.toggle('hidden', currentIndex !== QUESTIONS.length - 1);
+
+  updateCounter();
+}
+
+function updateCounter(){
+  const answeredCount = answers.filter(a => a !== null).length;
+  document.getElementById('qCounter').textContent = `प्रश्न ${currentIndex+1} / ${QUESTIONS.length} · ${answeredCount} उत्तरित`;
+}
+
+document.getElementById('flagBtn').addEventListener('click', () => {
+  flagged[currentIndex] = !flagged[currentIndex];
+  renderQuestion();
+  renderGridNav();
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if(currentIndex > 0){ currentIndex--; renderQuestion(); renderGridNav(); }
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if(currentIndex < QUESTIONS.length - 1){ currentIndex++; renderQuestion(); renderGridNav(); }
+});
+document.getElementById('submitBtn').addEventListener('click', () => {
+  clearInterval(timerInterval);
+  finishTest();
+});
+
+function renderGridNav(){
+  const grid = document.getElementById('gridNav');
+  grid.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const dot = document.createElement('div');
+    let cls = 'nav-dot';
+    if(i === currentIndex) cls += ' current';
+    if(answers[i] !== null) cls += ' answered';
+    if(flagged[i]) cls += ' flagged';
+    dot.className = cls;
+    dot.textContent = i+1;
+    dot.addEventListener('click', () => { currentIndex = i; renderQuestion(); renderGridNav(); });
+    grid.appendChild(dot);
+  });
+}
+
+function finishTest(){
+  if(submitted) return;
+  submitted = true;
+  quizScreen.classList.add('hidden');
+  resultScreen.classList.remove('hidden');
+
+  let correct = 0, wrong = 0, skipped = 0;
+  QUESTIONS.forEach((q, i) => {
+    if(answers[i] === null) skipped++;
+    else if(answers[i] === q.ans) correct++;
+    else wrong++;
+  });
+  const rawScore = correct * 1 - wrong * 0.25;
+  const score = Math.round(rawScore * 100) / 100;
+
+  document.getElementById('resultName').textContent = studentName;
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statSkip').textContent = skipped;
+
+  let verdict = 'पुनरावृत्ति आवश्यक';
+  const pct = (correct / QUESTIONS.length) * 100;
+  if(pct >= 80) verdict = 'उत्कृष्ट — परीक्षा हेतु तैयार';
+  else if(pct >= 60) verdict = 'अच्छा — कमज़ोर क्षेत्रों को सुधारें';
+  else if(pct >= 40) verdict = 'ठीक — गहनता से दोहराएं';
+  document.getElementById('verdictText').textContent = verdict;
+
+  const grid = document.getElementById('resultGrid');
+  grid.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const d = document.createElement('div');
+    let cls = 'rdot';
+    if(answers[i] === null) cls += ' r-skip';
+    else if(answers[i] === q.ans) cls += ' r-correct';
+    else cls += ' r-wrong';
+    d.className = cls;
+    d.textContent = 'Q' + (i+1);
+    grid.appendChild(d);
+  });
+
+  const akList = document.getElementById('akList');
+  akList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  QUESTIONS.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'ak-item';
+    const yourAns = answers[i] === null ? 'प्रयास नहीं किया गया' : `${letters[answers[i]]}) ${q.opts[answers[i]]}`;
+    div.innerHTML = `
+      <div class="ak-q">प्रश्न ${i+1}. [${q.sec}] ${q.q}</div>
+      <div class="ak-ans">सही उत्तर: ${letters[q.ans]}) ${q.opts[q.ans]}</div>
+      <div class="ak-exp">${q.exp}</div>
+      <div class="ak-exp" style="color:#7a7150;">आपका उत्तर: ${yourAns}</div>
+    `;
+    akList.appendChild(div);
+  });
+
+  document.getElementById('whatsappBtn').onclick = () => {
+    const msg = `POCSO Act Test 01 (Hindi) Result%0A%0AName: ${encodeURIComponent(studentName)}%0AScore: ${score} / ${QUESTIONS.length}%0ACorrect: ${correct} | Wrong: ${wrong} | Unattempted: ${skipped}%0A%0A— Judiciary Prime, Rajasthan APO`;
+    window.open(`https://wa.me/919811187180?text=${msg}`, '_blank');
+  };
+}
+
+document.getElementById('retakeBtn').addEventListener('click', () => {
+  answers = new Array(QUESTIONS.length).fill(null);
+  flagged = new Array(QUESTIONS.length).fill(false);
+  currentIndex = 0;
+  secondsLeft = 30 * 60;
+  submitted = false;
+  resultScreen.classList.add('hidden');
+  quizScreen.classList.remove('hidden');
+  renderGridNav();
+  renderQuestion();
+  startTimer();
+});
+</script>
+</body>
+</html>
